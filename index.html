@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة الأفكار الزجاجية - Google Fonts, Images & Drawing</title>
+  
+  <!-- Font Awesome 6 (Icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Google Fonts Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta name="google-site-verification" content="NQRNLphQqkgjlRlkA8PzbyCVFeIOEs0IkfHsfiiYM0Y" />
+  
+  <link rel="stylesheet" href="../style/style.css">
+</head>
+<body class="bg-dark-purple">
+
+  <div class="background-decor">
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+    <div class="circle circle-3"></div>
+  </div>
+
+  <header class="glass-header">
+    <div class="logo">
+      <i class="fa-solid fa-wand-magic-sparkles icon"></i>
+      <h1 data-i18n="appTitle">لوحة الأفكار الزجاجية</h1>
+    </div>
+
+    <div class="controls">
+      <div class="bg-picker-container">
+        <label for="bg-select" data-i18n="bgLabel">الخلفية:</label>
+        <select id="bg-select" class="glass-select">
+          <option value="bg-dark-purple" data-i18n="bgDarkPurple">بنفسجي داكن</option>
+          <option value="bg-deep-blue" data-i18n="bgDeepBlue">أزرق عميق</option>
+          <option value="bg-midnight" data-i18n="bgMidnight">ليل أسود</option>
+          <option value="bg-sunset" data-i18n="bgSunset">غروب دافئ</option>
+          <option value="bg-emerald" data-i18n="bgEmerald">زمردي</option>
+        </select>
+      </div>
+
+      <button id="reset-view-btn" class="glass-btn">
+        <i class="fa-solid fa-crosshairs"></i> <span data-i18n="resetView">إعادة ضبط اللوحة</span>
+      </button>
+
+      <button id="draw-mode-btn" class="glass-btn">
+        <i class="fa-solid fa-pen-nib"></i> <span data-i18n="drawMode">وضع الرسم</span>
+      </button>
+
+      <button id="lang-btn" class="glass-btn">
+        <i class="fa-solid fa-globe"></i>
+        <span id="lang-text">English</span>
+      </button>
+
+      <button id="add-note-btn" class="glass-btn primary">
+        <i class="fa-solid fa-plus"></i> <span data-i18n="addNote">إضافة ملاحظة</span>
+      </button>
+
+      <!-- زر إضافة صورة مستقلة كـ نوت على اللوحة -->
+      <button id="add-image-note-btn" class="glass-btn primary">
+        <i class="fa-solid fa-image"></i> <span data-i18n="addImage">إضافة صورة</span>
+      </button>
+      <input type="file" id="board-image-input" accept="image/*" style="display: none;">
+
+      <button id="clear-all-btn" class="glass-btn danger">
+        <i class="fa-solid fa-trash-can"></i> <span data-i18n="clearAll">مسح الكل</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- شريط أدوات الرسم العائم (يظهر عند تفعيل وضع الرسم) -->
+  <div id="drawing-toolbar" class="glass-drawing-toolbar hidden">
+    <div class="toolbar-title"><i class="fa-solid fa-paintbrush"></i> <span data-i18n="drawingTools">أدوات الرسم</span></div>
+    <span class="divider"></span>
+    <input type="color" id="brush-color" value="#a855f7" title="لون الفرشاة">
+    <select id="brush-size" class="glass-select-sm" title="حجم الفرشاة">
+      <option value="2">رفيع (2px)</option>
+      <option value="5" selected>متوسط (5px)</option>
+      <option value="12">عريض (12px)</option>
+      <option value="25">عريض جداً (25px)</option>
+    </select>
+    <button id="eraser-btn" class="format-btn" title="ممحاة"><i class="fa-solid fa-eraser"></i></button>
+    <button id="clear-drawing-btn" class="format-btn danger" title="مسح كل الرسم"><i class="fa-solid fa-rotate-left"></i></button>
+    <button id="close-drawing-btn" class="format-btn" title="إغلاق وضع الرسم"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+
+  <!-- شريط أدوات التنسيق النصي العائم -->
+  <div id="text-toolbar" class="glass-text-toolbar hidden">
+    <div class="font-select-wrapper">
+      <i class="fa-solid fa-font font-icon"></i>
+      <select id="font-family-select" class="glass-select-sm font-dropdown" title="نوع الخط">
+        <optgroup label="─── خطوط عربية (Google Fonts) ───">
+          <option value="Cairo" selected>Cairo (القاهرة)</option>
+          <option value="Alexandria">Alexandria (الإسكندرية)</option>
+          <option value="Tajawal">Tajawal (تجوال)</option>
+          <option value="Almarai">Almarai (المرعي)</option>
+          <option value="Amiri">Amiri (أميري)</option>
+          <option value="Aref Ruqaa">Aref Ruqaa (عارف رقعة)</option>
+          <option value="Changa">Changa (شانغا)</option>
+          <option value="El Messiri">El Messiri (المسيري)</option>
+          <option value="Lalezar">Lalezar (لاله زار)</option>
+          <option value="Reem Kufi">Reem Kufi (ريم كوفي)</option>
+          <option value="Mada">Mada (مدى)</option>
+          <option value="Katibeh">Katibeh (كتيبة)</option>
+          <option value="Vazirmatn">Vazirmatn (وزير)</option>
+          <option value="Kufam">Kufam (كوفام)</option>
+        </optgroup>
+        <optgroup label="─── English & Latin Fonts ───">
+          <option value="Roboto">Roboto</option>
+          <option value="Open Sans">Open Sans</option>
+          <option value="Montserrat">Montserrat</option>
+          <option value="Poppins">Poppins</option>
+          <option value="Lato">Lato</option>
+          <option value="Inter">Inter</option>
+          <option value="Playfair Display">Playfair Display</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <span class="divider"></span>
+
+    <select id="font-size-select" class="glass-select-sm" title="Font Size">
+      <option value="3" data-i18n="fontSizeNormal">عادي</option>
+      <option value="1" data-i18n="fontSizeSmall">صغير</option>
+      <option value="5" data-i18n="fontSizeLarge">كبير</option>
+      <option value="7" data-i18n="fontSizeTitle">عنوان</option>
+    </select>
+
+    <span class="divider"></span>
+
+    <button class="format-btn" data-command="bold" title="Bold"><i class="fa-solid fa-bold"></i></button>
+    <button class="format-btn" data-command="italic" title="Italic"><i class="fa-solid fa-italic"></i></button>
+    <button class="format-btn" data-command="underline" title="Underline"><i class="fa-solid fa-underline"></i></button>
+
+    <span class="divider"></span>
+
+    <input type="color" id="text-color-picker" title="Text Color" value="#ffffff">
+  </div>
+
+  <div id="canvas-container" class="canvas-container">
+    <main id="board" class="glass-board">
+      <!-- كانفاس الرسم التفاعلي الممتد فوق اللوحة -->
+      <canvas id="drawing-canvas" width="10000" height="10000"></canvas>
+    </main>
+  </div>
+
+  <!-- الفوتر الزجاجي العائم أسفل الشاشة -->
+  <footer class="glass-footer">
+    <p>&copy; 2026 Virtual Glassmorphism Whiteboard. All rights reserved.</p>
+    <p>Made by Zainab Salman</p>
+  </footer>
+
+  <script src="../app/script.js"></script>
+</body>
+</html>
